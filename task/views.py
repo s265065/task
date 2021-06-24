@@ -38,19 +38,20 @@ def get(request):
         for row in cursor.fetchall()
     ]
 
+    tables = []
     for i in range(1, 31):
         sql = 'SELECT userName, userEmail, userPhone FROM task_user ' \
               'JOIN task_group ON task_user.groupId_id = task_group.groupId ' \
               'JOIN task_usersdutylist ON task_user.userId = task_usersdutylist.userId_id ' \
               'WHERE (day_id = %s) AND (isDuty = true)'
         cursor = connection.cursor()
-        cursor.execute(sql, [day])
+        cursor.execute(sql, [i])
 
         desc = cursor.description
-        table = [
+        tables.append([
             dict(zip([col[0] for col in desc], row))
             for row in cursor.fetchall()
-        ]
+        ])
 
-    return render(request, "index.html", {"users": users, "table": table})
+    return render(request, "index.html", {"users": users, "tables": tables})
 

@@ -12,7 +12,7 @@
         {{ form.as_table }}
     </table>
 
-    <div>
+    <div style="margin: 15px">
         <form method="POST" action="get/">
             {% csrf_token %}
 
@@ -27,7 +27,7 @@
                 <option label="Все группы" value="all"></option>
             </select></p>
 
-            <table class="calendar">
+            <table class="table">
                 <tr>
                     <td><input type="radio" name="day" value="1 "> 1</td>
                     <td><input type="radio" name="day" value="2 "> 2</td>
@@ -74,15 +74,15 @@
                 </tr>
             </table>
 
-            <input type="submit" value="Получить список дежурных">
+            <input class="button" type="submit" value="Получить список дежурных">
         </form>
     </div>
 
-    <div>
+    <div style="margin: 15px">
 
         {% if users %}
-            <span>Список дежурных</span>
-            <table>
+            <span style="font-size: large">Список дежурных</span>
+            <table class="table">
                 <tr>
                     <th>Имя</th>
                     <th>Почта</th>
@@ -98,15 +98,18 @@
             </table>
         {% endif %}
     </div>
-
-    <div>
-         <table>
+</div>
+     <div class="container">
+        {% for table in tables %}
+            <div class="item">
+                <span class="span">{{forloop.counter}} апреля</span>
+            <table class="table">
                 <tr>
                     <th>Имя</th>
                     <th>Почта</th>
                     <th>Телефон</th>
                 </tr>
-                {% for person in users %}
+                {% for person in table %}
                     <tr>
                         <td>{{ person.userName }}</td>
                         <td>{{ person.userEmail }}</td>
@@ -114,7 +117,8 @@
                     </tr>
                 {% endfor %}
             </table>
-    </div>
-</div>
+            </div>
+        {% endfor %}
+     </div>
 </body>
 </html>

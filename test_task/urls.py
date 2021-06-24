@@ -5,7 +5,7 @@ from task import views
 
 urlpatterns = [
 
-    path('get/', views.get),
+    re_path(r'^get/', views.get),
     path('', views.index),
     path('admin/', admin.site.urls),
 
