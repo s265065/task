@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}"/>
+    <title>Django Forms</title>
+</head>
+<body>
+<div style="display: flex">
+    <table>
+        {{ form.as_table }}
+    </table>
+
+    <div>
+        <form method="POST" action="get/">
+            {% csrf_token %}
+
+            <p><select name="groupId" class="select_group">
+                <option label="Дежурный по инфраструктуре ЦОД (dc)" value="116"></option>
+                <option label="Дежурный по телефонии и КЦ" value="483"></option>
+                <option label="Дежурный по мониторингу (skm)" value="624"></option>
+                <option label="Дежурный по виртуализации (VM)" value="626"></option>
+                <option label="Мониторинг УЦОД 24/7" value="923"></option>
+                <option label="Дежурный по СУБД PostgreSQL (pgSQL)" value="947"></option>
+                <option label="Дежурный по администрированию 1С (1С админ)" value="960"></option>
+                <option label="Все группы" value="all"></option>
+            </select></p>
+
+            <table class="calendar">
+                <tr>
+                    <td><input type="radio" name="day" value="1 "> 1</td>
+                    <td><input type="radio" name="day" value="2 "> 2</td>
+                    <td><input type="radio" name="day" value="3 "> 3</td>
+                    <td><input type="radio" name="day" value="4 "> 4</td>
+                    <td><input type="radio" name="day" value="5 "> 5</td>
+                    <td><input type="radio" name="day" value="6 "> 6</td>
+                </tr>
+
+                <tr>
+                    <td><input type="radio" name="day" value="7 "> 7</td>
+                    <td><input type="radio" name="day" value="8 "> 8</td>
+                    <td><input type="radio" name="day" value="9 "> 9</td>
+                    <td><input type="radio" name="day" value="10"> 10</td>
+                    <td><input type="radio" name="day" value="11"> 11</td>
+                    <td><input type="radio" name="day" value="12"> 12</td>
+                </tr>
+
+                <tr>
+                    <td><input type="radio" name="day" value="13"> 13</td>
+                    <td><input type="radio" name="day" value="14"> 14</td>
+                    <td><input type="radio" name="day" value="15"> 15</td>
+                    <td><input type="radio" name="day" value="16"> 16</td>
+                    <td><input type="radio" name="day" value="17"> 17</td>
+                    <td><input type="radio" name="day" value="18"> 18</td>
+                </tr>
+
+                <tr>
+                    <td><input type="radio" name="day" value="19"> 19</td>
+                    <td><input type="radio" name="day" value="20"> 20</td>
+                    <td><input type="radio" name="day" value="21"> 21</td>
+                    <td><input type="radio" name="day" value="22"> 22</td>
+                    <td><input type="radio" name="day" value="23"> 23</td>
+                    <td><input type="radio" name="day" value="24"> 24</td>
+                </tr>
+
+                <tr>
+                    <td><input type="radio" name="day" value="25"> 25</td>
+                    <td><input type="radio" name="day" value="26"> 26</td>
+                    <td><input type="radio" name="day" value="27"> 27</td>
+                    <td><input type="radio" name="day" value="28"> 28</td>
+                    <td><input type="radio" name="day" value="29"> 29</td>
+                    <td><input type="radio" name="day" value="30"> 30</td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Получить список дежурных">
+        </form>
+    </div>
+
+    <div>
+
+        {% if users %}
+            <span>Список дежурных</span>
+            <table>
+                <tr>
+                    <th>Имя</th>
+                    <th>Почта</th>
+                    <th>Телефон</th>
+                </tr>
+                {% for person in users %}
+                    <tr>
+                        <td>{{ person.userName }}</td>
+                        <td>{{ person.userEmail }}</td>
+                        <td>{{ person.userPhone }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+    <div>
+         <table>
+                <tr>
+                    <th>Имя</th>
+                    <th>Почта</th>
+                    <th>Телефон</th>
+                </tr>
+                {% for person in users %}
+                    <tr>
+                        <td>{{ person.userName }}</td>
+                        <td>{{ person.userEmail }}</td>
+                        <td>{{ person.userPhone }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+    </div>
+</div>
+</body>
+</html>
